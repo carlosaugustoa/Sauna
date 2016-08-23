@@ -18,7 +18,7 @@ public class ProdutoCTRL {
         return dao.insert(produto);
     }
     
-    public boolean atualizar(int id, String nome) {
+    public boolean atualizar(String id, String nome) {
         Produto produto = new Produto();
         produto.setPro_id(id);
         produto.setPro_nome(nome.toUpperCase());
@@ -33,7 +33,7 @@ public class ProdutoCTRL {
         }
     }
     
-    public boolean remover(int id) {
+    public boolean remover(String id) {
         Produto produto = new Produto();
         produto.setPro_id(id);
         return dao.delete(produto);

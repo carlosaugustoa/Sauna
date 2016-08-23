@@ -8,7 +8,7 @@ public class DataBase {
 
     public Connection connection = null;
     private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String DATABASE = "db_agenda";
+    private final String DATABASE = "db_sauna";
     private final String URL = "jdbc:mysql://localhost:3306/" + DATABASE;
     private final String USER = "root";
     private final String PASSWORD = "senac";

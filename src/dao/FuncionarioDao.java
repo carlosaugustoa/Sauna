@@ -113,7 +113,7 @@ public class FuncionarioDao {
                     Funcionario funcionario = new Funcionario();
                     funcionario.setFun_id(rs.getInt(1));
                     funcionario.setFun_nome(rs.getString(2));
-                    funcionario.add(funcionario);
+                    funcionarios.add(funcionario);
                 }
                 rs.close();
                 ps.close();

@@ -20,17 +20,14 @@ public class ConsumoDao {
     
     public boolean insert(Consumo consumo) {
         if (db.open()) {
-            sql = "INSERT INTO tb_consumos (con_hora_ent, con_hora_sai, con_valor_t, con_status, funcionario, produto, cliente) "
-                    + "VALUES (?,?,?,?,?,?,?)";
+            sql = "INSERT INTO tb_consumos (cliente, funcionario, produto, con_valor_t)"
+                    + "VALUES (?,?,?,?)";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, consumo.getCon_hora_ent());
-                ps.setString(2, consumo.getCon_hora_sai());
-                ps.setInt(3, (int) consumo.getCon_valor_t());
-                ps.setString(4, consumo.getCon_status());
-                ps.setString(5, consumo.getfuncionario());
-                ps.setString(6, consumo.getproduto());
-                ps.setString(7, consumo.getcliente());
+                ps.setString(1, consumo.getCliente());
+                ps.setInt(2, consumo.getFuncionario());
+                ps.setInt(3, consumo.getProduto());
+                ps.setString(4, consumo.getCon_valor_t());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -46,7 +43,7 @@ public class ConsumoDao {
     
     public boolean delete(Consumo consumo) {
         if (db.open()) {
-            sql = "DELETE FROM tb_produtos WHERE pro_id = ?";
+            sql = "DELETE FROM tb_produtos WHERE pro_id = ? ";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setInt(1, consumo.getCon_id());

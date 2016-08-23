@@ -20,10 +20,14 @@ public class ClienteDao {
     
     public boolean insert(Cliente cliente) {
         if (db.open()) {
-            sql = "INSERT INTO tb_clientes (cli_nome) VALUES (?)";
+            sql = "INSERT INTO tb_clientes (cli_id, cli_seq, cli_data, cli_nome, cli_status) VALUES (?,?,?,?,?)";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, cliente.getCli_nome());
+                ps.setInt(1, cliente.getCli_id());
+                ps.setInt(2, cliente.getCli_seq());
+                ps.setString(3, cliente.getCli_data());
+                ps.setString(4, cliente.getCli_nome());
+                ps.setInt(5, cliente.getCli_status());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -113,7 +117,7 @@ public class ClienteDao {
                     Cliente cliente = new Cliente();
                     cliente.setCli_id(rs.getInt(1));
                     cliente.setCli_nome(rs.getString(2));
-                    cliente.add(cliente);
+                    clientes.add(cliente);
                 }
                 rs.close();
                 ps.close();

@@ -20,10 +20,12 @@ public class ProdutoDao {
     
     public boolean insert(Produto produto) {
         if (db.open()) {
-            sql = "INSERT INTO tb_produtos (pro_nome) VALUES (?)";
+            sql = "INSERT INTO tb_produtos (pro_id, pro_nome, pro_valor) VALUES (?,?,?)";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, produto.getPro_nome());
+                ps.setString(1, produto.getPro_id());
+                ps.setString(2, produto.getPro_nome());
+                ps.setFloat(3, produto.getPro_valor());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -42,7 +44,7 @@ public class ProdutoDao {
             sql = "DELETE FROM tb_produtos WHERE fun_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setInt(1, produto.getPro_id());
+                ps.setString(1, produto.getPro_id());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -84,7 +86,7 @@ public class ProdutoDao {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Produto produto = new Produto();
-                    produto.setPro_id(rs.getInt(1));
+                    produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
                     produtos.add(produto);
                 }
@@ -111,9 +113,9 @@ public class ProdutoDao {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Produto produto = new Produto();
-                    produto.setPro_id(rs.getInt(1));
+                    produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
-                    produto.add(produto);
+                    produtos.add(produto);
                 }
                 rs.close();
                 ps.close();
@@ -136,7 +138,7 @@ public class ProdutoDao {
                 ps.setInt(1, id);
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    produto.setPro_id(rs.getInt(1));
+                    produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
                     rs.close();
                     ps.close();
