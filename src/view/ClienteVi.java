@@ -44,7 +44,7 @@ public class ClienteVi extends JFrame {
         tfPesquisar.setBounds(10,10,100,32);
         add(tfPesquisar);
     
-        btNew = new JButton(new ImageIcon("images/icons/add.png"));
+        btNew = new JButton(new ImageIcon("images/icons/add.jpg"));
         btNew.setBounds(400,10,32,32);
         btNew.setBackground(new Color(0,0,0));
         btNew.setBorder(null);
