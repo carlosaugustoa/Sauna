@@ -12,16 +12,15 @@ public class FuncionarioCTRL {
         dao = new FuncionarioDao();
     }
     
-    public boolean adcionar(String nome) {
+    public boolean adcionar(String Fun_nome) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setFun_nome(nome.toUpperCase());
+        funcionario.setFun_nome(Fun_nome.toUpperCase());
         return dao.insert(funcionario);
     }
     
-    public boolean atualizar(int id, String nome) {
+    public boolean atualizar( String Fun_nome ) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setFun_id(id);
-        funcionario.setFun_nome(nome.toUpperCase());
+        funcionario.setFun_nome(Fun_nome.toUpperCase());
         return dao.update(funcionario);
     }
     

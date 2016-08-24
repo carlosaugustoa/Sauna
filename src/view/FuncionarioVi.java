@@ -36,7 +36,7 @@ public class FuncionarioVi extends JFrame {
 
     private void setComponents() {
         setLayout(null);
-        setTitle("Sauna");
+        setTitle("FUNCINÁRIOS");
         setResizable(false);
         setIconImage(new ImageIcon("images/icons/contatos.png").getImage());
         setBounds(0, 0, 400, 400);
@@ -64,26 +64,30 @@ public class FuncionarioVi extends JFrame {
         //btDelete.setBorder(null);
         add(btDelete);
         
-        model = new DefaultTableModel(new Object[] {"ID", "NOME"}, 0) {public boolean isCellEditable(int row, int col) {return false;}};
+        model = new DefaultTableModel(
+                new Object[] {
+                    "NOME"
+                }, 0
+        );
         loadTable();
         tbFuncionarios = new JTable(model);
         tbFuncionarios.setRowHeight(30);
         
         DefaultTableCellRenderer alinharDireita = new DefaultTableCellRenderer();
         alinharDireita.setHorizontalAlignment(SwingConstants.RIGHT);
-        DefaultTableCellRenderer alinharCentro = new DefaultTableCellRenderer();
-        alinharCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        //DefaultTableCellRenderer alinharCentro = new DefaultTableCellRenderer();
+        //alinharCentro.setHorizontalAlignment(SwingConstants.CENTER);
         
         tbFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tbFuncionarios.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tbFuncionarios.getColumnModel().getColumn(2).setPreferredWidth(150);
+        //tbFuncionarios.getColumnModel().getColumn(1).setPreferredWidth(150);
+        //tbFuncionarios.getColumnModel().getColumn(2).setPreferredWidth(150);
         
         tbFuncionarios.getColumnModel().getColumn(0).setResizable(false);
-        tbFuncionarios.getColumnModel().getColumn(1).setResizable(false);
-        tbFuncionarios.getColumnModel().getColumn(2).setResizable(false);
+        //tbFuncionarios.getColumnModel().getColumn(1).setResizable(false);
+        //tbFuncionarios.getColumnModel().getColumn(2).setResizable(false);
         
-        tbFuncionarios.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
-        tbFuncionarios.getColumnModel().getColumn(2).setCellRenderer(alinharDireita);
+        //tbFuncionarios.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
+        //tbFuncionarios.getColumnModel().getColumn(2).setCellRenderer(alinharDireita);
         
         tbFuncionarios.getTableHeader().setReorderingAllowed(false);
         

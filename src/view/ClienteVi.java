@@ -35,13 +35,13 @@ public class ClienteVi extends JFrame {
        
     private void setComponents(){
         setLayout(null);
-        setTitle("SAUNA");
+        setTitle("CLIENTE");
         setResizable(false);
         setIconImage(new ImageIcon("images/icons/clientes.png").getImage());
         setBounds(0,0,800,900);
         
         tfPesquisar = new JTextField();
-        tfPesquisar.setBounds(10,10,100,32);
+        tfPesquisar.setBounds(10,10,300,32);
         add(tfPesquisar);
     
         btNew = new JButton(new ImageIcon("images/icons/add.png"));
@@ -74,11 +74,11 @@ public class ClienteVi extends JFrame {
         DefaultTableCellRenderer alinharDireita = new DefaultTableCellRenderer();
         alinharDireita.setHorizontalAlignment(SwingConstants.RIGHT);
         
-        tbClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tbClientes.getColumnModel().getColumn(1).setPreferredWidth(5);
-        tbClientes.getColumnModel().getColumn(2).setPreferredWidth(50); 
-        tbClientes.getColumnModel().getColumn(3).setPreferredWidth(350); 
-        tbClientes.getColumnModel().getColumn(4).setPreferredWidth(5); 
+        tbClientes.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbClientes.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbClientes.getColumnModel().getColumn(2).setPreferredWidth(250); 
+        tbClientes.getColumnModel().getColumn(3).setPreferredWidth(700); 
+        tbClientes.getColumnModel().getColumn(4).setPreferredWidth(100); 
         
         tbClientes.getColumnModel().getColumn(0).setResizable(false);
         tbClientes.getColumnModel().getColumn(1).setResizable(false);
@@ -93,7 +93,7 @@ public class ClienteVi extends JFrame {
                         
         scroll = new JScrollPane();
         scroll.setViewportView(tbClientes);
-        scroll.setBounds(10,70,375,280);
+        scroll.setBounds(10,70,770,790);
         add(scroll);
     }
 

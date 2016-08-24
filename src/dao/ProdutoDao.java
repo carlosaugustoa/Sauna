@@ -60,10 +60,11 @@ public class ProdutoDao {
     
     public boolean update(Produto produto) {
         if (db.open()) {
-            sql = "UPDATE tb_produtos SET pro_nome = ? WHERE con_id = ?";
+            sql = "UPDATE tb_produtos SET pro_nome = ? WHERE pro_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setString(1, produto.getPro_nome());
+                ps.setFloat(2, produto.getPro_valor());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -88,6 +89,7 @@ public class ProdutoDao {
                     Produto produto = new Produto();
                     produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
+                    produto.setPro_valor(rs.getFloat(3));
                     produtos.add(produto);
                 }
                 rs.close();
@@ -106,7 +108,7 @@ public class ProdutoDao {
         if (db.open()) {
             List<Produto> produtos = new ArrayList();
             String filtro = "%" + filter + "%";
-            sql = "SELECT * FROM tb_produtos WHERE pro_nome LIKE ?";
+            sql = "SELECT * FROM tb_produtos WHERE pro_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setString(1, filtro);
@@ -115,6 +117,7 @@ public class ProdutoDao {
                     Produto produto = new Produto();
                     produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
+                    produto.setPro_valor(rs.getFloat(3));
                     produtos.add(produto);
                 }
                 rs.close();
@@ -140,6 +143,7 @@ public class ProdutoDao {
                 if (rs.next()) {
                     produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
+                    produto.setPro_valor(rs.getFloat(3));
                     rs.close();
                     ps.close();
                     db.close();

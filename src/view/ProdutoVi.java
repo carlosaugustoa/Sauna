@@ -36,10 +36,10 @@ public class ProdutoVi extends JFrame {
 
     private void setComponents() {
         setLayout(null);
-        setTitle("Produto");
+        setTitle("PRODUTO");
         setResizable(false);
         setIconImage(new ImageIcon("images/icons/produtos.png").getImage());
-        setBounds(0, 0, 400, 400);
+        setBounds(0, 0, 600, 600);
         
         tfPesquisar = new JTextField();
         tfPesquisar.setBounds(10, 10, 200, 32);
@@ -74,9 +74,9 @@ public class ProdutoVi extends JFrame {
         DefaultTableCellRenderer alinharCentro = new DefaultTableCellRenderer();
         alinharCentro.setHorizontalAlignment(SwingConstants.CENTER);
         
-        tbProdutos.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tbProdutos.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tbProdutos.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbProdutos.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbProdutos.getColumnModel().getColumn(1).setPreferredWidth(350);
+        tbProdutos.getColumnModel().getColumn(2).setPreferredWidth(100);
         
         tbProdutos.getColumnModel().getColumn(0).setResizable(false);
         tbProdutos.getColumnModel().getColumn(1).setResizable(false);
@@ -89,7 +89,7 @@ public class ProdutoVi extends JFrame {
         
         scroll = new JScrollPane();
         scroll.setViewportView(tbProdutos);
-        scroll.setBounds(10, 70, 375, 280);
+        scroll.setBounds(10, 70, 570, 490);
         add(scroll);
     }
 

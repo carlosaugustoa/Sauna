@@ -43,10 +43,11 @@ public class ClienteDao {
     
     public boolean delete(Cliente cliente) {
         if (db.open()) {
-            sql = "DELETE FROM tb_contatos WHERE cli_id = ?";
+            sql = "DELETE FROM tb_contatos WHERE cli_id = ?, cli_seq = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setInt(1, cliente.getCli_id());
+                ps.setInt(2, cliente.getCli_seq());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
