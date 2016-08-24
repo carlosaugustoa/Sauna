@@ -1,5 +1,6 @@
 package controller;
 
+
 import dao.ClienteDao;
 import java.util.List;
 import model.Cliente;
@@ -12,16 +13,23 @@ public class ClienteCTRL {
         dao = new ClienteDao();
     }
     
-    public boolean adcionar(String nome) {
+    public boolean adcionar(int Cli_id, int Cli_seq, String Cli_data, String Cli_nome, int Cli_status) {
         Cliente cliente = new Cliente();
-        cliente.setCli_nome(nome.toUpperCase());
+        cliente.setCli_id(Cli_id);
+        cliente.setCli_seq(Cli_seq);
+        cliente.setCli_data(Cli_data);
+        cliente.setCli_nome(Cli_nome);
+        cliente.setCli_status(Cli_status);
         return dao.insert(cliente);
     }
     
-    public boolean atualizar(int id, String nome) {
+    public boolean atualizar(int Cli_id, int Cli_seq, String Cli_data, String Cli_nome, int Cli_status) {
         Cliente cliente = new Cliente();
-        cliente.setCli_id(id);
-        cliente.setCli_nome(nome.toUpperCase());
+        cliente.setCli_id(Cli_id);
+        cliente.setCli_seq(Cli_seq);
+        cliente.setCli_data(Cli_data);
+        cliente.setCli_nome(Cli_nome);
+        cliente.setCli_status(Cli_status);
         return dao.update(cliente);
     }
     

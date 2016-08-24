@@ -38,13 +38,13 @@ public class ClienteVi extends JFrame {
         setTitle("SAUNA");
         setResizable(false);
         setIconImage(new ImageIcon("images/icons/clientes.png").getImage());
-        setBounds(0,0,800,800);
+        setBounds(0,0,800,900);
         
         tfPesquisar = new JTextField();
         tfPesquisar.setBounds(10,10,100,32);
         add(tfPesquisar);
     
-        btNew = new JButton(new ImageIcon("images/icons/add.jpg"));
+        btNew = new JButton(new ImageIcon("images/icons/add.png"));
         btNew.setBounds(400,10,32,32);
         btNew.setBackground(new Color(0,0,0));
         btNew.setBorder(null);
@@ -138,7 +138,7 @@ public class ClienteVi extends JFrame {
         }
     }
     
-    public static void main(String[]args){
+    public static void main(String[] args) {
         ClienteVi frame = new ClienteVi();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
