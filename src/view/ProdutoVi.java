@@ -2,6 +2,7 @@ package view;
 
 import controller.ProdutoCTRL;
 import java.awt.Color;
+import dao.ProdutoDao;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -23,27 +24,29 @@ import model.Produto;
 
 public class ProdutoVi extends JFrame {
 
-    private JTextField tfPesquisar;
+    //private JTextField tfPesquisar;
     private JButton btNew, btEdit, btDelete;
     private JTable tbProdutos;
     private DefaultTableModel model;
     private JScrollPane scroll;
+    private ProdutoDao dao;
     
     public ProdutoVi() {
         setComponents();
         setEvents();
+        dao = new ProdutoDao();
     }
 
     private void setComponents() {
         setLayout(null);
-        setTitle("PRODUTO");
-        setResizable(false);
-        setIconImage(new ImageIcon("images/icons/produtos.png").getImage());
+//        setTitle("PRODUTO");
+//        setResizable(false);
+//        setIconImage(new ImageIcon("images/icons/produtos.png").getImage());
         setBounds(0, 0, 600, 600);
         
-        tfPesquisar = new JTextField();
-        tfPesquisar.setBounds(10, 10, 200, 32);
-        add(tfPesquisar);
+//        tfPesquisar = new JTextField();
+//        tfPesquisar.setBounds(10, 10, 200, 32);
+//        add(tfPesquisar);
         
         btNew = new JButton(new ImageIcon("images/icons/add.png"));
         btNew.setBounds(250, 10, 32, 32);
@@ -64,7 +67,11 @@ public class ProdutoVi extends JFrame {
         //btDelete.setBorder(null);
         add(btDelete);
         
-        model = new DefaultTableModel(new Object[] {"ID", "NOME", "VALOR"}, 0) {public boolean isCellEditable(int row, int col) {return false;}};
+        model = new DefaultTableModel(
+                new Object[] {
+                    "ID", "NOME", "VALOR"
+                }, 0
+        );
         loadTable();
         tbProdutos = new JTable(model);
         tbProdutos.setRowHeight(30);
@@ -83,9 +90,9 @@ public class ProdutoVi extends JFrame {
         tbProdutos.getColumnModel().getColumn(2).setResizable(false);
         
         tbProdutos.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
-        tbProdutos.getColumnModel().getColumn(2).setCellRenderer(alinharDireita);
+        //tbProdutos.getColumnModel().getColumn(2).setCellRenderer(alinharDireita);
         
-        tbProdutos.getTableHeader().setReorderingAllowed(false);
+        //tbProdutos.getTableHeader().setReorderingAllowed(false);
         
         scroll = new JScrollPane();
         scroll.setViewportView(tbProdutos);
@@ -95,11 +102,13 @@ public class ProdutoVi extends JFrame {
 
     private void setEvents() {
         btEdit.addActionListener(new ActionListener() {
+           
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i[] = tbProdutos.getSelectedRows();
                 if (i.length == 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um produto!");
+                    
                 } else if (i.length > 1) {
                     JOptionPane.showMessageDialog(null, "Selecione apenas um produto!");
                 } else {
@@ -113,6 +122,7 @@ public class ProdutoVi extends JFrame {
             }
         });
         btNew.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 FormProdutoVi form = new FormProdutoVi(null, model);
@@ -120,8 +130,8 @@ public class ProdutoVi extends JFrame {
             }
         });
         btDelete.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
+                
                 int i[] = tbProdutos.getSelectedRows();
                 if (i.length == 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um produto!");
@@ -132,45 +142,36 @@ public class ProdutoVi extends JFrame {
                     produto.setPro_id((String) tbProdutos.getValueAt(i[0], 0));
                     produto.setPro_nome((String) tbProdutos.getValueAt(i[0], 1));
                     produto.setPro_valor((Float) tbProdutos.getValueAt(i[0], 2));
-                    int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir " + produto.getPro_nome() + "?");
-                    if (resposta == 0) {
-                        if (new ProdutoCTRL().remover(produto.getPro_id())) {
-                            JOptionPane.showMessageDialog(null, produto.getPro_nome() + " excluído com sucesso!");
-                            loadTable();
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Falha ao tentar excluir");
+                    
+                    dao.delete(produto);
+                    
+                    FormProdutoVi form = new FormProdutoVi(produto,model);
+                    int[] linhas = tbProdutos.getSelectedRows();
+                    DefaultTableModel dtm = (DefaultTableModel) tbProdutos.getModel();
+                    for(int j = (linhas.length-1); j>=0; j--){
+                        dtm.removeRow(linhas[j]);
                     }
-                }
-            }
-        });
-        tfPesquisar.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {
-                loadTable();
+                }                
             }
         });
     }
     
-    private void loadTable() {
+    private void loadTable(){
         model.setRowCount(0);
-        for (Produto produto : new ProdutoCTRL().listar(tfPesquisar.getText().equals("") ? null : tfPesquisar.getText())) {
-            model.addRow(new Object[] {produto.getPro_id(), produto.getPro_nome(), produto.getPro_valor()});
+        for(Produto produto : new ProdutoCTRL().listar(null)){
+          model.addRow(new Object[]{produto.getPro_id(),produto.getPro_nome(),produto.getPro_valor()});
         }
     }
     
-    public static void main(String[] args) {
-        ProdutoVi frame = new ProdutoVi();
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (window.width - frame.getSize().width) / 2;
-        int y = (window.height - frame.getSize().height) / 2;
-        frame.setLocation(x, y);
-        frame.setVisible(true);
+    public static void run(){
+//    public static void main(String[] args) {
+//        ClienteVi frame = new ClienteVi();
+//        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
+//        int x = (window.width - frame.getSize().width)/2;
+//        int y = (window.height - frame.getSize().height)/2;
+//        frame.setLocation(x,y);
+//        frame.setVisible(true);
     }
     
 }

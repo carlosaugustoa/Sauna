@@ -23,8 +23,8 @@ import model.Produto;
 
 public class FormProdutoVi extends JFrame {
 
-    private JLabel lbPro_nome, lbPro_valor;
-    private JTextField tfPro_nome, tfPro_valor;
+    private JLabel lbPro_id, lbPro_nome, lbPro_valor;
+    private JTextField tfPro_id, tfPro_nome, tfPro_valor;
     private JButton btSalvar;
     private DefaultTableModel model;
     private Produto produto;
@@ -40,13 +40,21 @@ public class FormProdutoVi extends JFrame {
         setLayout(null);
         setResizable(false);
         setBounds(0, 0, 380, 120);
+       
+        lbPro_id = new JLabel("Pro-id:");
+        lbPro_id.setBounds(10, 10, 80, 25);
+        add(lbPro_id);
+        
+        tfPro_id = new JTextField();
+        tfPro_id.setBounds(10, 35, 150, 32);
+        add(tfPro_id);
         
         lbPro_nome = new JLabel("Nome:");
         lbPro_nome.setBounds(10, 10, 80, 25);
         add(lbPro_nome);
         
         tfPro_nome = new JTextField();
-        tfPro_nome.setBounds(10, 35, 150, 32);
+        tfPro_nome.setBounds(10, 65, 150, 32);
         add(tfPro_nome);
         
         lbPro_valor = new JLabel("Valor:");
@@ -54,22 +62,18 @@ public class FormProdutoVi extends JFrame {
         add(lbPro_valor);
         
         tfPro_valor = new JTextField();
-        tfPro_valor.setBounds(10, 35, 150, 32);
+        tfPro_valor.setBounds(10, 95, 150, 32);
         add(tfPro_valor);
         
         
-        try {
-            if (produto == null) {
-                setIconImage(new ImageIcon("images/icons/add.png").getImage());
-                setTitle("Novo Produto");
-            } else {
-                setIconImage(new ImageIcon("images/icons/edit.png").getImage());
-                setTitle("Editar Produto");
-                tfPro_nome.setText(produto.getPro_nome());
-                tfPro_valor.setText(produto.getPro_valor());
-            }
-        } catch (ParseException error) {
-            System.out.println("ERRO: " + error.toString());
+        if (produto == null) {
+            setIconImage(new ImageIcon("images/icons/add.png").getImage());
+            setTitle("Novo Produto");
+        } else {
+            setIconImage(new ImageIcon("images/icons/edit.png").getImage());
+            setTitle("Editar Produto");
+            tfPro_nome.setText(produto.getPro_nome());
+            tfPro_valor.setText(String.valueOf(produto.getPro_valor()));
         } 
         
         btSalvar = new JButton(new ImageIcon("images/icons/save.png"));
@@ -84,19 +88,19 @@ public class FormProdutoVi extends JFrame {
         btSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (tfPro_nome.getText().equals("") || tfPro_valor.getText().equals("")) {
+                if (tfPro_id.getText().equals("") || tfPro_nome.getText().equals("") || tfPro_valor.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Campos obrigatórios");
                 } else {
                     ProdutoCTRL control = new ProdutoCTRL();
-                    if (produto == null) {
-                        if (control.adcionar(tfPro_nome.getText(), tfPro_valor.getText() ) {
+                    if (produto == null) { 
+                        if (control.adcionar(tfPro_id.getText(), tfPro_nome.getText(), Integer.parseInt(tfPro_valor.getText()) ) ) {
                             loadTable();
                             setVisible(false);
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao tentar adcionar");
                         }
                     } else {
-                        if (control.atualizar(produto.getPro_id(), tfPro_nome.getText(), tf_Pro_valor())) {
+                        if (control.atualizar(tfPro_id.getText(), tfPro_nome.getText(), Integer.parseInt(tfPro_valor.getText()) ) ) {
                             loadTable();
                             setVisible(false);
                         } else {

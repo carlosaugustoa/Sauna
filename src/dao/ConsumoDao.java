@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Consumo;
+import model.Funcionario;
+import model.Cliente;
 
 public class ConsumoDao {
 
@@ -20,14 +22,16 @@ public class ConsumoDao {
     
     public boolean insert(Consumo consumo) {
         if (db.open()) {
-            sql = "INSERT INTO tb_consumos (cliente, funcionario, produto, con_valor_t)"
-                    + "VALUES (?,?,?,?)";
+            sql = "INSERT INTO tb_consumos (Fun_id, Con_cli_id, Con_cli_seq, Con_pro_id, con_qtd, con_valor_t)"
+                    + "VALUES (?,?,?,?,?,?)";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, consumo.getCliente());
-                ps.setInt(2, consumo.getFuncionario());
-                ps.setInt(3, consumo.getProduto());
-                ps.setString(4, consumo.getCon_valor_t());
+                ps.setInt(1, funcionario.getFun_id());
+                ps.setInt(2, cliente.getCli_id());
+                ps setInt(3, cliente.getCli_seq())
+                ps.setInt(4, produto.getPro_id());
+                ps.setInt(5, consumo.getCon_qtd());
+                ps.setFloat(6, consumo.getCon_valor_t());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();

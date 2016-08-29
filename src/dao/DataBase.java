@@ -11,7 +11,7 @@ public class DataBase {
     private final String DATABASE = "db_sauna";
     private final String URL = "jdbc:mysql://localhost:3306/" + DATABASE;
     private final String USER = "root";
-    private final String PASSWORD = "senac";
+    private final String PASSWORD = "";
     
     public boolean open() {
         try {

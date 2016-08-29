@@ -75,14 +75,14 @@ public class FormFuncionarioVi extends JFrame {
                 } else {
                     FuncionarioCTRL control = new FuncionarioCTRL();
                     if (funcionario == null) {
-                        if (control.adcionar(tfFun_nome.getText()) {
+                        if (control.adcionar(tfFun_nome.getText())) {
                             loadTable();
                             setVisible(false);
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao tentar adcionar");
                         }
                     } else {
-                        if (control.atualizar(funcionario.getFun_id(), tfFun_nome.getText())) {
+                        if (control.atualizar(tfFun_nome.getText())) {
                             loadTable();
                             setVisible(false);
                         } else {

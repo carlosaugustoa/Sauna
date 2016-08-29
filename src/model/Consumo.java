@@ -6,6 +6,7 @@ public class Consumo {
     private Cliente cliente;
     private Funcionario funcionario;
     private Produto produto;
+    private int con_qtd;
     private float con_valor_t;
 
     public int getCon_id() {
@@ -40,6 +41,14 @@ public class Consumo {
         this.produto = produto;
     }
 
+    public int getCon_qtd() {
+        return con_qtd;
+    }
+
+    public void setCon_qtd(int con_qtd) {
+        this.con_qtd = con_qtd;
+    }
+
     public float getCon_valor_t() {
         return con_valor_t;
     }
@@ -50,10 +59,8 @@ public class Consumo {
 
     @Override
     public String toString() {
-        return "Consumo{" + "con_id=" + con_id + ", cliente=" + cliente + ", funcionario=" + funcionario + ", produto=" + produto + ", con_valor_t=" + con_valor_t + '}';
+        return "Consumo{" + "con_id=" + con_id + ", cliente=" + cliente + ", funcionario=" + funcionario + ", produto=" + produto + ", con_qtd=" + con_qtd + ", con_valor_t=" + con_valor_t + '}';
     }
-        
 
-    
-    
+      
 }

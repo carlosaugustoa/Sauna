@@ -52,7 +52,6 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "cli_id=" + cli_id + ", cli_seq=" + cli_seq + ", cli_data=" + cli_data + ", cli_nome=" + cli_nome + ", cli_status=" + cli_status + '}';
     }
-        
-    
-    
+
+      
 }

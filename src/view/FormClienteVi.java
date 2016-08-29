@@ -35,63 +35,59 @@ public class FormClienteVi extends JFrame {
     private void setComponents() {
         setLayout(null);
         setResizable(false);
-        setBounds(0, 0, 380, 120);
+        setBounds(0, 0, 500, 500);
         
-        lbCli_id = new JLabel("Cli-id:");
-        lbCli_id.setBounds(10, 10, 80, 25);
+        lbCli_id = new JLabel("CLI-ID:");
+        lbCli_id.setBounds(10, 25, 80, 25);
         add(lbCli_id);
         
         tfCli_id = new JTextField();
-        tfCli_id.setBounds(10, 35, 150, 32);
+        tfCli_id.setBounds(10, 50, 40, 25);
         add(tfCli_id);
         
-        lbCli_seq = new JLabel("Cli-seq:");
-        lbCli_seq.setBounds(10, 10, 80, 25);
+        lbCli_seq = new JLabel("CLI-SEQ:");
+        lbCli_seq.setBounds(10, 75, 80, 25);
         add(lbCli_seq);
         
         tfCli_seq = new JTextField();
-        tfCli_seq.setBounds(10, 35, 150, 32);
+        tfCli_seq.setBounds(10, 100, 20, 25);
         add(tfCli_seq);
         
-        lbCli_data = new JLabel("data:");
-        lbCli_data.setBounds(10, 10, 80, 25);
+        lbCli_data = new JLabel("DATA:");
+        lbCli_data.setBounds(10, 125, 80, 25);
         add(lbCli_data);
         
         tfCli_data = new JTextField();
-        tfCli_data.setBounds(10, 35, 150, 32);
+        tfCli_data.setBounds(10, 150, 150, 25);
         add(tfCli_data);
         
         lbCli_nome = new JLabel("nome:");
-        lbCli_id.setBounds(10, 10, 80, 25);
+        lbCli_id.setBounds(10, 175, 80, 25);
         add(lbCli_nome);
         
         tfCli_nome = new JTextField();
-        tfCli_nome.setBounds(10, 35, 150, 32);
+        tfCli_nome.setBounds(10, 200, 400, 25);
         add(tfCli_nome);
         
-        lbCli_status = new JLabel("status:");
-        lbCli_status.setBounds(10, 10, 80, 25);
+        lbCli_status = new JLabel("STATUS:");
+        lbCli_status.setBounds(10, 225, 80, 25);
         add(lbCli_status);
         
         tfCli_status = new JTextField();
-        tfCli_status.setBounds(10, 35, 150, 32);
+        tfCli_status.setBounds(10, 250, 20, 25);
         add(tfCli_status);
-                
-        try {
-            if (cliente == null) {
-                setIconImage(new ImageIcon("images/icons/add.png").getImage());
-                setTitle("Novo Cliente");
-            } else {
-                setIconImage(new ImageIcon("images/icons/edit.png").getImage());
-                setTitle("Editar Cliente");
-                tfCli_id.setText(cliente.getCli_id());
-                tfCli_seq.setText(cliente.getCli_seq());
-                tfCli_data.setText(cliente.getCli_data());
-                tfCli_nome.setText(cliente.getCli_nome());
-                tfCli_status.setText(cliente.getCli_status());
-            }
-        } catch (ParseException error) {
-            System.out.println("ERRO: " + error.toString());
+        
+        if (cliente == null) {
+            setIconImage(new ImageIcon("images/icons/add.png").getImage());
+            setTitle("NOVO CLIENTE");
+        } else {
+            setIconImage(new ImageIcon("images/icons/edit.png").getImage());
+            setTitle("EDITAR CLIENTE");
+            tfCli_id.setText(String.valueOf(cliente.getCli_id()));
+            tfCli_seq.setText(String.valueOf(cliente.getCli_seq()));
+            tfCli_data.setText(cliente.getCli_data());
+            tfCli_nome.setText(cliente.getCli_nome());
+            tfCli_status.setText(String.valueOf(cliente.getCli_status()));
         } 
         
         btSalvar = new JButton(new ImageIcon("images/icons/save.png"));
@@ -100,25 +96,31 @@ public class FormClienteVi extends JFrame {
         btSalvar.setBorder(null);
         add(btSalvar);
         
+//        tfCli_data.setText(cliente.getCli_data());
+//        tfCli_id.setText(String.valueOf(cliente.getCli_id()));
+//        tfCli_nome.setText(cliente.getCli_nome());
+//        tfCli_seq.setText(String.valueOf(cliente.getCli_seq()));
+//        tfCli_status.setText(String.valueOf(cliente.getCli_status()));
+        
     }
 
     private void setEvents() {
         btSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (tfCli_id.getText().equals("") || tfCli_seq.getText().equals("") || tfCli_data.getText().equals("")) {
+                if (tfCli_id.getText().equals("") || tfCli_seq.getText().equals("") || tfCli_data.getText().equals("") || tfCli_nome.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Campos obrigatórios");
                 } else {
                     ClienteCTRL control = new ClienteCTRL();
                     if (cliente == null) {
-                        if (control.adcionar(tfCli_id.get(), tfCli_seq.get(), tfCli_data.getText(), tfCli_nome.getText(), tfCli_status.get() ) {
+                        if (control.adcionar(Integer.parseInt(tfCli_id.getText()), Integer.parseInt(tfCli_seq.getText()), tfCli_data.getText(), tfCli_nome.getText(), Integer.parseInt(tfCli_status.getText()))) {
                             loadTable();
                             setVisible(false);
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao tentar adcionar");
                         }
                     } else {
-                        if (control.atualizar(cliente.getCli_id(), cliente.getCli_seq(), cliente.getCli_data(), cliente.getCli_nome(), cliente.getCli_status() ) {
+                        if (control.atualizar(Integer.parseInt(tfCli_id.getText()), Integer.parseInt(tfCli_seq.getText()), tfCli_data.getText(), tfCli_nome.getText(), Integer.parseInt(tfCli_status.getText()))) {
                             loadTable();
                             setVisible(false);
                         } else {
@@ -133,7 +135,7 @@ public class FormClienteVi extends JFrame {
     private void loadTable() {
         model.setRowCount(0);
         for (Cliente cliente : new ClienteCTRL().listar(null)) {
-            model.addRow(new Object[] {cliente.getCli_Id(), cliente.getCli_seq(), cliente.getCli_data(), cliente.getCli_nome(), cliente.getCli_status()});
+            model.addRow(new Object[] {cliente.getCli_id(), cliente.getCli_seq(), cliente.getCli_data(), cliente.getCli_nome(), cliente.getCli_status()});
         }
     }
     
