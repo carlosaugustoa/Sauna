@@ -13,21 +13,25 @@ public class ProdutoCTRL {
         dao = new ProdutoDao();
     }
     
-    public boolean adcionar(String pro_id, String pro_nome, Float pro_valor) {
+    public boolean adcionar(String Pro_id, String Pro_nome, int Pro_valor) {
         Produto produto = new Produto();
-        produto.setPro_id(pro_id);
-        produto.setPro_nome(pro_nome.toUpperCase());
-        produto.setPro_valor(pro_valor);
+        produto.setPro_id(Pro_id);
+        produto.setPro_nome(Pro_nome);
+        produto.setPro_valor(Pro_valor);
         return dao.insert(produto);
     }
     
-    public boolean atualizar(String id, String nome, Float valor) {
+    
+    
+    public boolean atualizar(String Pro_id, String Pro_nome, int Pro_valor) {
         Produto produto = new Produto();
-        produto.setPro_id(id);
-        produto.setPro_nome(nome.toUpperCase());
-        produto.setPro_valor(valor);
+        produto.setPro_id(Pro_id);
+        produto.setPro_nome(Pro_nome.toUpperCase());
+        produto.setPro_valor(Pro_valor);
         return dao.update(produto);
     }
+    
+    
     
     public List<Produto> listar(String filter) {
         if (filter == null) {
@@ -37,9 +41,9 @@ public class ProdutoCTRL {
         }
     }
     
-    public boolean remover(String id) {
+    public boolean remover(String Pro_id) {
         Produto produto = new Produto();
-        produto.setPro_id(id);
+        produto.setPro_id(Pro_id);
         return dao.delete(produto);
     }
     

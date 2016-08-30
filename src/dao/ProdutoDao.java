@@ -26,12 +26,14 @@ public class ProdutoDao {
                 ps = db.connection.prepareStatement(sql);
                 ps.setString(1, produto.getPro_id());
                 ps.setString(2, produto.getPro_nome());
-                ps.setFloat(3, produto.getPro_valor());
+                ps.setInt(3, produto.getPro_valor());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
                     return true;
                 }
+                
+                
             } catch (SQLException error) {
                 System.out.println("ERRO: " + error.toString());
             }
@@ -51,6 +53,7 @@ public class ProdutoDao {
                     db.close();
                     return true;
                 }
+                
             } catch (SQLException error) {
                 System.out.println("ERRO: " + error.toString());
             }
@@ -61,7 +64,7 @@ public class ProdutoDao {
     
     public boolean update(Produto produto) {
         if (db.open()) {
-            sql = "UPDATE tb_produtos SET pro_nome = ?, pro_valor WHERE pro_id = ?";
+            sql = "UPDATE tb_produtos SET pro_nome = ?, pro_valor = ? WHERE pro_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setString(1, produto.getPro_nome());
@@ -72,6 +75,8 @@ public class ProdutoDao {
                     db.close();
                     return true;
                 }
+                
+                
             } catch (SQLException error) {
                 System.out.println("ERRO: " + error.toString());
             }
@@ -91,9 +96,11 @@ public class ProdutoDao {
                     Produto produto = new Produto();
                     produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
-                    produto.setPro_valor(rs.getFloat(3));
+                    produto.setPro_valor(rs.getInt(3));
                     produtos.add(produto);
                 }
+                
+                
                 rs.close();
                 ps.close();
                 db.close();
@@ -118,8 +125,8 @@ public class ProdutoDao {
                 while (rs.next()) {
                     Produto produto = new Produto();
                     produto.setPro_id(rs.getString(1));
-                    produto.setPro_nome(rs.getString(2));
-                    produto.setPro_valor(rs.getFloat(3));
+                    //produto.setPro_nome(rs.getString(2));
+                    //produto.setPro_valor(rs.getFloat(3));
                     produtos.add(produto);
                 }
                 rs.close();
@@ -145,7 +152,7 @@ public class ProdutoDao {
                 if (rs.next()) {
                     produto.setPro_id(rs.getString(1));
                     produto.setPro_nome(rs.getString(2));
-                    produto.setPro_valor(rs.getFloat(3));
+                    produto.setPro_valor(rs.getInt(3));
                     rs.close();
                     ps.close();
                     db.close();

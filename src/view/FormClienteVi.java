@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static java.lang.Integer.parseInt;
-import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,9 +33,9 @@ public class FormClienteVi extends JFrame {
     private void setComponents() {
         setLayout(null);
         setResizable(false);
-        setBounds(0, 0, 500, 500);
+        setBounds(0, 0, 500, 320);
         
-        lbCli_id = new JLabel("CLI-ID:");
+        lbCli_id = new JLabel("NOME:");
         lbCli_id.setBounds(10, 25, 80, 25);
         add(lbCli_id);
         
@@ -95,12 +93,6 @@ public class FormClienteVi extends JFrame {
         btSalvar.setBackground(new Color(238, 238, 238));
         btSalvar.setBorder(null);
         add(btSalvar);
-        
-//        tfCli_data.setText(cliente.getCli_data());
-//        tfCli_id.setText(String.valueOf(cliente.getCli_id()));
-//        tfCli_nome.setText(cliente.getCli_nome());
-//        tfCli_seq.setText(String.valueOf(cliente.getCli_seq()));
-//        tfCli_status.setText(String.valueOf(cliente.getCli_status()));
         
     }
 

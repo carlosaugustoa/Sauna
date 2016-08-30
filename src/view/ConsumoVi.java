@@ -136,14 +136,14 @@ public class ConsumoVi extends JFrame {
 //        }
 //    }
     }
-//    public static void main(String[] args) {
-//        ConsumoVi frame = new ConsumoVi();
-//        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
-//        int x = (window.width - frame.getSize().width)/2;
-//        int y = (window.height - frame.getSize().height)/2;
-//        frame.setLocation(x,y);
-//        frame.setVisible(true);
-//    }
-////    
+    public static void main(String[] args) {
+        ConsumoVi frame = new ConsumoVi();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (window.width - frame.getSize().width)/2;
+        int y = (window.height - frame.getSize().height)/2;
+        frame.setLocation(x,y);
+        frame.setVisible(true);
+    }
+//    
 }

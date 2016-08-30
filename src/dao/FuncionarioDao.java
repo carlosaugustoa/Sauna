@@ -20,10 +20,11 @@ public class FuncionarioDao {
     
     public boolean insert(Funcionario funcionario) {
         if (db.open()) {
-            sql = "INSERT INTO tb_funcionarios (fun_nome) VALUES (?)";
+            sql = "INSERT INTO tb_funcionarios (fun_id, fun_nome) VALUES (?,?)";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, funcionario.getFun_nome());
+                ps.setString(1, funcionario.getFun_id());
+                ps.setString(2, funcionario.getFun_nome());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -42,7 +43,7 @@ public class FuncionarioDao {
             sql = "DELETE FROM tb_funcionarios WHERE fun_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setInt(1, funcionario.getFun_id());
+                ps.setString(1, funcionario.getFun_id());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -58,10 +59,11 @@ public class FuncionarioDao {
     
     public boolean update(Funcionario funcionario) {
         if (db.open()) {
-            sql = "UPDATE tb_funcionarios SET fun_nome = ? WHERE con_id = ?";
+            sql = "UPDATE tb_funcionarios SET fun_nome = ? WHERE fun_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, funcionario.getFun_nome());
+                ps.setString(1, funcionario.getFun_id());
+                ps.setString(2, funcionario.getFun_nome());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -84,7 +86,7 @@ public class FuncionarioDao {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Funcionario funcionario = new Funcionario();
-                    funcionario.setFun_id(rs.getInt(1));
+                    funcionario.setFun_id(rs.getString(1));
                     funcionario.setFun_nome(rs.getString(2));
                     funcionarios.add(funcionario);
                 }
@@ -111,7 +113,7 @@ public class FuncionarioDao {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Funcionario funcionario = new Funcionario();
-                    funcionario.setFun_id(rs.getInt(1));
+                    funcionario.setFun_id(rs.getString(1));
                     funcionario.setFun_nome(rs.getString(2));
                     funcionarios.add(funcionario);
                 }
@@ -136,7 +138,7 @@ public class FuncionarioDao {
                 ps.setInt(1, id);
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    funcionario.setFun_id(rs.getInt(1));
+                    funcionario.setFun_id(rs.getString(1));
                     funcionario.setFun_nome(rs.getString(2));
                     rs.close();
                     ps.close();

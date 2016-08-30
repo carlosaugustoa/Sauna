@@ -8,24 +8,19 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+public class FuncionarioVi extends JPanel {
 
-public class FuncionarioVi extends JFrame {
-
-    private JTextField tfPesquisar;
     private JButton btNew, btEdit, btDelete;
     private JTable tbFuncionarios;
     private DefaultTableModel model;
@@ -50,19 +45,15 @@ public class FuncionarioVi extends JFrame {
          
         btEdit = new JButton(new ImageIcon("images/icons/edit.png"));
         btEdit.setBounds(300, 10, 32, 32);
-        //btEdit.setBackground(new Color(238, 238, 238));
-        //btEdit.setBorder(null);
         add(btEdit);
         
         btDelete = new JButton(new ImageIcon("images/icons/del.png"));
         btDelete.setBounds(350, 10, 32, 32);
-        //btDelete.setBackground(new Color(238, 238, 238));
-        //btDelete.setBorder(null);
         add(btDelete);
         
         model = new DefaultTableModel(
                 new Object[] {
-                    "NOME"
+                    "FUN_ID,NOME"
                 }, 0
         );
         loadTable();
@@ -75,16 +66,12 @@ public class FuncionarioVi extends JFrame {
         alinharCentro.setHorizontalAlignment(SwingConstants.CENTER);
         
         tbFuncionarios.getColumnModel().getColumn(0).setPreferredWidth(5);
-        //tbFuncionarios.getColumnModel().getColumn(1).setPreferredWidth(150);
-        //tbFuncionarios.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbFuncionarios.getColumnModel().getColumn(1).setPreferredWidth(150);
+        
         
         tbFuncionarios.getColumnModel().getColumn(0).setResizable(false);
-        //tbFuncionarios.getColumnModel().getColumn(1).setResizable(false);
-        //tbFuncionarios.getColumnModel().getColumn(2).setResizable(false);
-        
-        //tbFuncionarios.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
-        //tbFuncionarios.getColumnModel().getColumn(2).setCellRenderer(alinharDireita);
-        
+        tbFuncionarios.getColumnModel().getColumn(1).setResizable(false);
+                
         tbFuncionarios.getTableHeader().setReorderingAllowed(false);
        
         tbFuncionarios.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
@@ -108,7 +95,7 @@ public class FuncionarioVi extends JFrame {
                     JOptionPane.showMessageDialog(null, "Selecione apenas um funcionario!");
                 } else {
                     Funcionario funcionario = new Funcionario();
-                    //funcionario.setFun_id((int) tbFuncionarios.getValueAt(i[0], 0));
+                    funcionario.setFun_id((String) tbFuncionarios.getValueAt(i[0], 0));
                     funcionario.setFun_nome((String) tbFuncionarios.getValueAt(i[0], 1));
                     FormFuncionarioVi form = new FormFuncionarioVi(funcionario, model);
                     form.open();
@@ -133,7 +120,7 @@ public class FuncionarioVi extends JFrame {
                     JOptionPane.showMessageDialog(null, "Selecione apenas um funcionario!");
                 } else {
                     Funcionario funcionario = new Funcionario();
-                    funcionario.setFun_id((int) tbFuncionarios.getValueAt(i[0], 0));
+                    funcionario.setFun_id((String) tbFuncionarios.getValueAt(i[0], 0));
                     funcionario.setFun_nome((String) tbFuncionarios.getValueAt(i[0], 1));
                     
                     dao.delete(funcionario);
@@ -156,14 +143,19 @@ public class FuncionarioVi extends JFrame {
         }
     }
     
-//    public static void main(String[] args) {
-//        FuncionarioVi frame = new FuncionarioVi();
-//        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
-//        int x = (window.width - frame.getSize().width) / 2;
-//        int y = (window.height - frame.getSize().height) / 2;
-//        frame.setLocation(x, y);
-//        frame.setVisible(true);
-//    }
-//    
+//    public static void run(){
+    public static void main(String[] args) {
+        FuncionarioVi frame = new FuncionarioVi();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (window.width - frame.getSize().width)/2;
+        int y = (window.height - frame.getSize().height)/2;
+        frame.setLocation(x,y);
+        frame.setVisible(true);
+    }
+
+    private void setDefaultCloseOperation(int EXIT_ON_CLOSE) {
+        throw new UnsupportedOperationException("");
+    }
+    
 }

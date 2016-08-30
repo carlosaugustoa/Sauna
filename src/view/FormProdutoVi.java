@@ -6,20 +6,20 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import model.Produto;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
+//import javax.swing.JFormattedTextField;
+//import javax.swing.text.MaskFormatter;
 
 public class FormProdutoVi extends JFrame {
 
@@ -39,42 +39,60 @@ public class FormProdutoVi extends JFrame {
     private void setComponents() {
         setLayout(null);
         setResizable(false);
-        setBounds(0, 0, 380, 120);
+        setBounds(0, 0, 500, 220);
        
         lbPro_id = new JLabel("Pro-id:");
-        lbPro_id.setBounds(10, 10, 80, 25);
+        lbPro_id.setBounds(10, 25, 80, 25);
         add(lbPro_id);
         
         tfPro_id = new JTextField();
-        tfPro_id.setBounds(10, 35, 150, 32);
+        tfPro_id.setBounds(10, 50, 60, 25);
         add(tfPro_id);
         
         lbPro_nome = new JLabel("Nome:");
-        lbPro_nome.setBounds(10, 10, 80, 25);
+        lbPro_nome.setBounds(10, 75, 80, 25);
         add(lbPro_nome);
         
         tfPro_nome = new JTextField();
-        tfPro_nome.setBounds(10, 65, 150, 32);
+        tfPro_nome.setBounds(10, 100, 460, 25);
         add(tfPro_nome);
         
         lbPro_valor = new JLabel("Valor:");
-        lbPro_valor.setBounds(10, 10, 80, 25);
+        lbPro_valor.setBounds(10, 125, 80, 25);
         add(lbPro_valor);
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         tfPro_valor = new JTextField();
-        tfPro_valor.setBounds(10, 95, 150, 32);
+        tfPro_valor.setBounds(10, 150, 80, 32);
         add(tfPro_valor);
+        
+        
+        
         
         
         if (produto == null) {
             setIconImage(new ImageIcon("images/icons/add.png").getImage());
-            setTitle("Novo Produto");
+            setTitle("NOVO PRODUTO");
         } else {
             setIconImage(new ImageIcon("images/icons/edit.png").getImage());
-            setTitle("Editar Produto");
+            setTitle("EDITAR PRODUTO");
+            tfPro_id.setText(produto.getPro_id());
             tfPro_nome.setText(produto.getPro_nome());
             tfPro_valor.setText(String.valueOf(produto.getPro_valor()));
         } 
+        
+        
         
         btSalvar = new JButton(new ImageIcon("images/icons/save.png"));
         btSalvar.setBounds(320, 35, 32, 32);
@@ -106,8 +124,8 @@ public class FormProdutoVi extends JFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao tentar atualizar");
                         }
-                    }
-                }
+                    } 
+                } 
             }  
         });
         

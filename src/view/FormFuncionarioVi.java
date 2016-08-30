@@ -6,25 +6,19 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import model.Funcionario;
 
 public class FormFuncionarioVi extends JFrame {
 
-    private JLabel lbFun_nome;
-    private JTextField tfFun_nome;
+    private JLabel lbFun_id, lbFun_nome;
+    private JTextField tfFun_id, tfFun_nome;
     private JButton btSalvar;
     private DefaultTableModel model;
     private Funcionario funcionario;
@@ -40,24 +34,36 @@ public class FormFuncionarioVi extends JFrame {
         setLayout(null);
         setResizable(false);
         setBounds(0, 0, 380, 120);
+       
+        lbFun_id = new JLabel("FUN-ID:");
+        lbFun_id.setBounds(10, 10, 80, 25);
+        add(lbFun_id);
+        
+        tfFun_id = new JTextField();
+        tfFun_id.setBounds(10, 35, 50, 32);
+        add(tfFun_id);
         
         lbFun_nome = new JLabel("Nome:");
-        lbFun_nome.setBounds(10, 10, 80, 25);
+        lbFun_nome.setBounds(10, 50, 80, 25);
         add(lbFun_nome);
         
         tfFun_nome = new JTextField();
-        tfFun_nome.setBounds(10, 35, 150, 32);
+        tfFun_nome.setBounds(10, 75, 150, 32);
         add(tfFun_nome);
         
-            if (funcionario == null) {
-                setIconImage(new ImageIcon("images/icons/add.png").getImage());
-                setTitle("Novo Funcionario");
-            } else {
-                setIconImage(new ImageIcon("images/icons/edit.png").getImage());
-                setTitle("Editar Funcionario");
-                tfFun_nome.setText(funcionario.getFun_nome());
-            }
+        if (funcionario == null) {
+            setIconImage(new ImageIcon("images/icons/add.png").getImage());
+            setTitle("NOVO FUNCIONARIO");
+        } else {
+            setIconImage(new ImageIcon("images/icons/edit.png").getImage());
+            setTitle("EDITAR FUNCIONARIO");
+            tfFun_id.setText(funcionario.getFun_id());
+            tfFun_nome.setText(funcionario.getFun_nome());
+        }
    
+            
+        
+            
         btSalvar = new JButton(new ImageIcon("images/icons/save.png"));
         btSalvar.setBounds(320, 35, 32, 32);
         btSalvar.setBackground(new Color(238, 238, 238));
@@ -70,19 +76,19 @@ public class FormFuncionarioVi extends JFrame {
         btSalvar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (tfFun_nome.getText().equals("") ) {
+                if (tfFun_id.getText().equals("") || tfFun_nome.getText().equals("") ) {
                     JOptionPane.showMessageDialog(null, "Campos obrigatórios");
                 } else {
                     FuncionarioCTRL control = new FuncionarioCTRL();
                     if (funcionario == null) {
-                        if (control.adcionar(tfFun_nome.getText())) {
+                        if (control.adcionar(tfFun_id.getText(), tfFun_nome.getText() )) {
                             loadTable();
                             setVisible(false);
                         } else {
                             JOptionPane.showMessageDialog(null, "Falha ao tentar adcionar");
                         }
                     } else {
-                        if (control.atualizar(tfFun_nome.getText())) {
+                        if (control.atualizar(tfFun_id.getText(), tfFun_nome.getText())) {
                             loadTable();
                             setVisible(false);
                         } else {

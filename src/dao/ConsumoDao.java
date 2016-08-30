@@ -22,14 +22,17 @@ public class ConsumoDao {
     
     public boolean insert(Consumo consumo) {
         if (db.open()) {
-            sql = "INSERT INTO tb_consumos (Fun_id, Con_cli_id, Con_cli_seq, Con_pro_id, con_qtd, con_valor_t)"
-                    + "VALUES (?,?,?,?,?,?)";
+            sql = "SELECT (Fun_id, Cli_id, Cli_seq, Pro_id, Con_qtd, Con_valor_t) VALUES (?,?,?,?,?,?) " +
+                    "FROM tb_funcionarios inner join tb_consumos on fun_id = Con_fun_id " +
+                                          "inner join tb_clientes on Cli_id = Con_cli_id and  Cli_seq = Con_cli_seq " +
+                                          "inner join tb_produtos on Pro_id = Con_pro_id";
+                        
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setInt(1, funcionario.getFun_id());
-                ps.setInt(2, cliente.getCli_id());
-                ps setInt(3, cliente.getCli_seq())
-                ps.setInt(4, produto.getPro_id());
+                ps.setInt(1, consumo.getFun_id());
+                ps.setInt(2, consumo.getCli_id());
+                ps setInt(3, consumo.getCli_seq())
+                ps.setInt(4, consumo.getPro_id());
                 ps.setInt(5, consumo.getCon_qtd());
                 ps.setFloat(6, consumo.getCon_valor_t());
                 if (ps.executeUpdate() == 1) {

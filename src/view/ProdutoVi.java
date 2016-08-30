@@ -1,28 +1,30 @@
 package view;
 
+import model.Produto;
 import controller.ProdutoCTRL;
-import java.awt.Color;
 import dao.ProdutoDao;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import model.Produto;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
 
-public class ProdutoVi extends JFrame {
+public class ProdutoVi extends JPanel {
 
     //private JTextField tfPesquisar;
     private JButton btNew, btEdit, btDelete;
@@ -39,7 +41,7 @@ public class ProdutoVi extends JFrame {
 
     private void setComponents() {
         setLayout(null);
-//        setTitle("PRODUTO");
+        //setTitle("P R O D U T O");
 //        setResizable(false);
 //        setIconImage(new ImageIcon("images/icons/produtos.png").getImage());
         setBounds(0, 0, 600, 600);
@@ -84,15 +86,20 @@ public class ProdutoVi extends JFrame {
         tbProdutos.getColumnModel().getColumn(0).setPreferredWidth(100);
         tbProdutos.getColumnModel().getColumn(1).setPreferredWidth(350);
         tbProdutos.getColumnModel().getColumn(2).setPreferredWidth(100);
+       
+        
         
         tbProdutos.getColumnModel().getColumn(0).setResizable(false);
         tbProdutos.getColumnModel().getColumn(1).setResizable(false);
         tbProdutos.getColumnModel().getColumn(2).setResizable(false);
         
+        
+        
         tbProdutos.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
         //tbProdutos.getColumnModel().getColumn(2).setCellRenderer(alinharDireita);
         
         //tbProdutos.getTableHeader().setReorderingAllowed(false);
+       
         
         scroll = new JScrollPane();
         scroll.setViewportView(tbProdutos);
@@ -115,9 +122,11 @@ public class ProdutoVi extends JFrame {
                     Produto produto = new Produto();
                     produto.setPro_id((String) tbProdutos.getValueAt(i[0], 0));
                     produto.setPro_nome((String) tbProdutos.getValueAt(i[0], 1));
-                    produto.setPro_valor((Float) tbProdutos.getValueAt(i[0], 2));
+                    produto.setPro_valor((int) tbProdutos.getValueAt(i[0], 2));
                     FormProdutoVi form = new FormProdutoVi(produto, model);
                     form.open();
+                    
+                    
                 }
             }
         });
@@ -130,7 +139,7 @@ public class ProdutoVi extends JFrame {
             }
         });
         btDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent ae) {
                 
                 int i[] = tbProdutos.getSelectedRows();
                 if (i.length == 0) {
@@ -141,7 +150,9 @@ public class ProdutoVi extends JFrame {
                     Produto produto = new Produto();
                     produto.setPro_id((String) tbProdutos.getValueAt(i[0], 0));
                     produto.setPro_nome((String) tbProdutos.getValueAt(i[0], 1));
-                    produto.setPro_valor((Float) tbProdutos.getValueAt(i[0], 2));
+                    produto.setPro_valor((int) tbProdutos.getValueAt(i[0], 2));
+                 
+                    
                     
                     dao.delete(produto);
                     
@@ -165,7 +176,7 @@ public class ProdutoVi extends JFrame {
     
     public static void run(){
 //    public static void main(String[] args) {
-//        ClienteVi frame = new ClienteVi();
+//        ProdutoVi frame = new ProdutoVi();
 //        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //        Dimension window = Toolkit.getDefaultToolkit().getScreenSize();
 //        int x = (window.width - frame.getSize().width)/2;

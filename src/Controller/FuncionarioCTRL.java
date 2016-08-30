@@ -12,15 +12,17 @@ public class FuncionarioCTRL {
         dao = new FuncionarioDao();
     }
     
-    public boolean adcionar(String Fun_nome) {
+    public boolean adcionar(String Fun_id, String Fun_nome) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setFun_nome(Fun_nome.toUpperCase());
+        funcionario.setFun_id(Fun_id);
+        funcionario.setFun_nome(Fun_nome);
         return dao.insert(funcionario);
     }
     
-    public boolean atualizar( String Fun_nome ) {
+    public boolean atualizar(String Fun_id, String Fun_nome ) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setFun_nome(Fun_nome.toUpperCase());
+        funcionario.setFun_id(Fun_id);
+        funcionario.setFun_nome(Fun_nome);
         return dao.update(funcionario);
     }
     
@@ -32,9 +34,9 @@ public class FuncionarioCTRL {
         }
     }
     
-    public boolean remover(int id) {
+    public boolean remover(String Fun_id) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setFun_id(id);
+        funcionario.setFun_id(Fun_id);
         return dao.delete(funcionario);
     }
     

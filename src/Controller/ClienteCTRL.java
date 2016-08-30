@@ -2,7 +2,6 @@ package controller;
 
 import dao.ClienteDao;
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.Cliente;
   
 public class ClienteCTRL {
@@ -41,9 +40,10 @@ public class ClienteCTRL {
         }
     }
     
-    public boolean remover(int id) {
+    public boolean remover(int Cli_id, int Cli_seq) {
         Cliente cliente = new Cliente();
-        cliente.setCli_id(id);
+        cliente.setCli_id(Cli_id);
+        cliente.setCli_seq(Cli_seq);
         return dao.delete(cliente);
     }
     

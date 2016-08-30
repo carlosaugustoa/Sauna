@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+ 
+
 
 public class ClienteVi extends JPanel {
     
@@ -39,10 +41,18 @@ public class ClienteVi extends JPanel {
        
     private void setComponents(){
         setLayout(null);
+      
+        
+        
         setBounds(0,0,800,900);
+       
+        
+        
+        
         
         btNew = new JButton(new ImageIcon("images/icons/add.png"));
         btNew.setBounds(400,10,32,32);
+      
         btNew.setBackground(new Color(0,0,0));
         btNew.setBorder(null);
         add(btNew);
@@ -61,7 +71,7 @@ public class ClienteVi extends JPanel {
         
         model = new DefaultTableModel(
                 new Object[] {
-                    "ID","SEQ","DATA","NOME","STATUS"
+                    "CLI - ID","SEQ - ID","DATA","NOME","STATUS"
                 }, 0
         );  
         loadTable();
@@ -86,8 +96,10 @@ public class ClienteVi extends JPanel {
         tbClientes.getColumnModel().getColumn(4).setResizable(false); 
        
         tbClientes.getColumnModel().getColumn(0).setCellRenderer(alinharCentro);
-        //tbClientes.getColumnModel().getColumn(2),setCellRenderer(alinharDireita);
-        
+        tbClientes.getColumnModel().getColumn(1).setCellRenderer(alinharCentro);
+        tbClientes.getColumnModel().getColumn(2).setCellRenderer(alinharCentro);
+        tbClientes.getColumnModel().getColumn(4).setCellRenderer(alinharCentro);
+       
         // muda de lugar os campos
         //tbClientes.getTableHeader().setReorderingAllowed(false);
                         
@@ -106,9 +118,9 @@ public class ClienteVi extends JPanel {
                 if (i.length == 0){
                     JOptionPane.showMessageDialog(null, "Selecione um cliente!");
                   
-                }else if (i.length > 1){
+                } else if (i.length > 1){
                     JOptionPane.showMessageDialog(null, "Selecione apenas um cliente!");
-                }else {
+                } else {
                     Cliente cliente = new Cliente();
                     cliente.setCli_id((int)tbClientes.getValueAt(i[0], 0));
                     cliente.setCli_seq((int)tbClientes.getValueAt(i[0], 1));
@@ -132,11 +144,11 @@ public class ClienteVi extends JPanel {
             public void actionPerformed(ActionEvent ae) {
 
                 int i[] = tbClientes.getSelectedRows();
-                if (i.length == 0){
+                if (i.length == 0) {
                     JOptionPane.showMessageDialog(null, "Selecione um cliente!");
-                }else if (i.length > 1){
+                } else if (i.length > 1) {
                     JOptionPane.showMessageDialog(null, "Selecione apenas um cliente!");
-                }else {
+                } else {
                     Cliente cliente = new Cliente();
                     cliente.setCli_id((int)tbClientes.getValueAt(i[0], 0));
                     cliente.setCli_seq((int)tbClientes.getValueAt(i[0], 1));

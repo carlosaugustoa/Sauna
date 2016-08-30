@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.Cliente;
 
 public class ClienteDao {
@@ -141,14 +140,14 @@ public class ClienteDao {
         return null;
     }
     
-    public Cliente select(int id, int seq) {
+    public Cliente select(int Pro_id, int Pro_seq) {
         if (db.open()) {
             Cliente cliente = new Cliente();
             sql = "SELECT * FROM tb_cliente WHERE cli_id = ? AND cli_seq = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setInt(1, id);
-                ps.setInt(2, seq);
+                ps.setInt(1, Pro_id);
+                ps.setInt(2, Pro_seq);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     cliente.setCli_id(rs.getInt(1));

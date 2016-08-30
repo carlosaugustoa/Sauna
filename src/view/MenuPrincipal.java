@@ -31,8 +31,8 @@ public MenuPrincipal(){
         miProduto = new JMenuItem("PRODUTOS");
         miConsumo = new JMenuItem("LISTA");
                
-        mnArquivo.setMnemonic('A');
-        mnExemplos.setMnemonic('E');
+        //mnArquivo.setMnemonic('A');
+        //mnExemplos.setMnemonic('E');
        
         mnArquivo.add(miSair);
         mnExemplos.add(miCliente);
