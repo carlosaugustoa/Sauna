@@ -29,12 +29,12 @@ public class ConsumoDao {
                         
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setInt(1, consumo.getFun_id());
+                ps.setString(1, consumo.getFun_id());
                 ps.setInt(2, consumo.getCli_id());
                 ps setInt(3, consumo.getCli_seq())
-                ps.setInt(4, consumo.getPro_id());
+                ps.setString(4, consumo.getPro_id());
                 ps.setInt(5, consumo.getCon_qtd());
-                ps.setFloat(6, consumo.getCon_valor_t());
+                ps.setDouble(6, consumo.getCon_valor_t());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -50,7 +50,7 @@ public class ConsumoDao {
     
     public boolean delete(Consumo consumo) {
         if (db.open()) {
-            sql = "DELETE FROM tb_produtos WHERE pro_id = ? ";
+            sql = "DELETE FROM tb_produtos WHERE con_id = ? ";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setInt(1, consumo.getCon_id());
@@ -69,10 +69,16 @@ public class ConsumoDao {
     
     public boolean update(Consumo consumo) {
         if (db.open()) {
-            sql = "UPDATE tb_consumos SET con_nome = ? WHERE con_id = ?";
+            sql = "UPDATE tb_consumos SET Fun_id = ?, Cli_id = ?, Cli_seq = ?, Pro_id = ?, Con_qtd= ?, Con_valor_t = ? WHERE con_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setString(1, cliente.getCli_nome());
+                ps.setString(1, consumo.getFun_id());
+                ps.setInt(2, consumo.getCli_id());
+                ps setInt(3, consumo.getCli_seq());
+                ps.setString(4, consumo.getPro_id());
+                ps.setInt(5, consumo.getCon_qtd());
+                ps.setDouble(6, consumo.getCon_valor_t());
+                ps.setInt(7, consumo.getCon_id());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -86,23 +92,28 @@ public class ConsumoDao {
         return false;
     }
     
-    public List<Cliente> selectAll() {
+    public List<Consumo> selectAll() {
         if (db.open()) {
-            List<Cliente> clientes = new ArrayList();
-            sql = "SELECT * FROM tb_clientes";
+            List<Consumo> consumos = new ArrayList();
+            sql = "SELECT * FROM tb_consumos";
             try {
                 ps = db.connection.prepareStatement(sql);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    Cliente cliente = new Cliente();
-                    cliente.setCli_id(rs.getInt(1));
-                    cliente.setCli_nome(rs.getString(2));
-                    clientes.add(cliente);
+                    Consumo consumo = new Cliente();
+                    consumo.setCli_id(rs.getInt(1));
+                    consumo.setFuncionario(rs.getString(2));
+                    consumo.setCli_id(rs.getInt(3));
+                    consumo.setCli_seq(rs.getInt(4));
+                    consumo.setProduto(rs.getString(5));
+                    consumo.setCon_qtd(rs.getInt(6));
+                    consumo.setCon_valor_t(rs.getDouble(7));
+                    consumo.add(consumo);
                 }
                 rs.close();
                 ps.close();
                 db.close();
-                return clientes;
+                return consumos;
             } catch (SQLException error) {
                 System.out.println("ERRO: " + error.toString());
             }
@@ -111,9 +122,9 @@ public class ConsumoDao {
         return null;
     }
     
-    public List<Cliente> selectFilter(String filter) {
+    public List<Consumo> selectFilter(String filter) {
         if (db.open()) {
-            List<Cliente> clientes = new ArrayList();
+            List<Consumo> consumos = new ArrayList();
             String filtro = "%" + filter + "%";
             sql = "SELECT * FROM tb_clientes WHERE cli_nome LIKE ?";
             try {
