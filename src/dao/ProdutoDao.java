@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Produto;
 
 public class ProdutoDao {
@@ -41,7 +42,7 @@ public class ProdutoDao {
     
     public boolean delete(Produto produto) {
         if (db.open()) {
-            sql = "DELETE FROM tb_produtos WHERE fun_id = ?";
+            sql = "DELETE FROM tb_produtos WHERE pro_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setString(1, produto.getPro_id());
@@ -60,11 +61,12 @@ public class ProdutoDao {
     
     public boolean update(Produto produto) {
         if (db.open()) {
-            sql = "UPDATE tb_produtos SET pro_nome = ? WHERE pro_id = ?";
+            sql = "UPDATE tb_produtos SET pro_nome = ?, pro_valor WHERE pro_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
                 ps.setString(1, produto.getPro_nome());
                 ps.setFloat(2, produto.getPro_valor());
+                ps.setString(3, produto.getPro_id());
                 if (ps.executeUpdate() == 1) {
                     ps.close();
                     db.close();
@@ -132,13 +134,13 @@ public class ProdutoDao {
         return null;
     }
     
-    public Produto select(int id) {
+    public Produto select(String pro_id) {
         if (db.open()) {
             Produto produto = new Produto();
             sql = "SELECT * FROM tb_produtos WHERE pro_id = ?";
             try {
                 ps = db.connection.prepareStatement(sql);
-                ps.setInt(1, id);
+                ps.setString(1, pro_id);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     produto.setPro_id(rs.getString(1));
